@@ -1,0 +1,93 @@
+# ==========================================
+# Dataset Schema
+# ==========================================
+
+columns:
+  - Chromophore: object
+  - Solvent: object
+  - Absorption max (nm): float
+
+
+# ==========================================
+# Numerical Columns
+# ==========================================
+
+numerical_columns:
+  - Absorption max (nm)
+
+
+# ==========================================
+# Categorical Columns
+# ==========================================
+
+categorical_columns: []
+
+
+# ==========================================
+# Columns to Drop
+# ==========================================
+
+drop_columns: _id
+
+
+# ==========================================
+# Target Column
+# ==========================================
+
+target_column:
+  - Absorption max (nm)
+
+
+# ==========================================
+# SMILES Columns
+# ==========================================
+
+smiles_columns:
+  - Chromophore
+  - Solvent
+
+
+# ==========================================
+# Data Validation Configuration
+# ==========================================
+
+validation:
+  check_missing_values: true
+  validate_smiles: true
+  check_target_numeric: true
+
+
+# ==========================================
+# Data Transformation Configuration
+# ==========================================
+
+feature_generation:
+
+  molecule:
+    column: Chromophore
+
+    morgan_fingerprint:
+      enabled: true
+      radius: 2
+      n_bits: 512
+
+    rdkit_descriptors:
+      enabled: true
+
+  solvent:
+    column: Solvent
+
+    rdkit_descriptors:
+      enabled: true
+
+    morgan_fingerprint:
+      enabled: false
+
+
+# ==========================================
+# Transformed Feature Validation
+# ==========================================
+
+feature_validation:
+  check_nan: true
+  check_infinite_values: true

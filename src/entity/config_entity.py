@@ -23,21 +23,33 @@ class DataIngestionConfig:
     train_test_split_ratio: float = DATA_INGESTION_TRAIN_TEST_SPLIT_RATIO
     collection_name:str = DATA_INGESTION_COLLECTION_NAME
 
+
+@dataclass
+class DataValidationConfig:
+    data_validation_dir: str = os.path.join(training_pipeline_config.artifact_dir,DATA_VALIDATION_DIR_NAME)
+    validation_report_file_path: str = os.path.join(data_validation_dir,DATA_VALIDATION_REPORT_FILE_NAME)
+    # NEW: Directory for cleaned datasets
+    cleaned_data_dir: str = os.path.join(data_validation_dir,"cleaned")
+    # NEW: Cleaned training data
+    cleaned_train_file_path: str = os.path.join(cleaned_data_dir,"cleaned_train.csv")
+    # NEW: Cleaned testing data
+    cleaned_test_file_path: str = os.path.join(cleaned_data_dir,"cleaned_test.csv")
+
 # @dataclass
 # class DataValidationConfig:
 #     data_validation_dir: str = os.path.join(training_pipeline_config.artifact_dir, DATA_VALIDATION_DIR_NAME)
 #     validation_report_file_path: str = os.path.join(data_validation_dir, DATA_VALIDATION_REPORT_FILE_NAME)
 
-# @dataclass
-# class DataTransformationConfig:
-#     data_transformation_dir: str = os.path.join(training_pipeline_config.artifact_dir, DATA_TRANSFORMATION_DIR_NAME)
-#     transformed_train_file_path: str = os.path.join(data_transformation_dir, DATA_TRANSFORMATION_TRANSFORMED_DATA_DIR,
-#                                                     TRAIN_FILE_NAME.replace("csv", "npy"))
-#     transformed_test_file_path: str = os.path.join(data_transformation_dir, DATA_TRANSFORMATION_TRANSFORMED_DATA_DIR,
-#                                                    TEST_FILE_NAME.replace("csv", "npy"))
-#     transformed_object_file_path: str = os.path.join(data_transformation_dir,
-#                                                      DATA_TRANSFORMATION_TRANSFORMED_OBJECT_DIR,
-#                                                      PREPROCSSING_OBJECT_FILE_NAME)
+@dataclass
+class DataTransformationConfig:
+    data_transformation_dir: str = os.path.join(training_pipeline_config.artifact_dir, DATA_TRANSFORMATION_DIR_NAME)
+    transformed_train_file_path: str = os.path.join(data_transformation_dir, DATA_TRANSFORMATION_TRANSFORMED_DATA_DIR,
+                                                    TRAIN_FILE_NAME.replace("csv", "npy"))
+    transformed_test_file_path: str = os.path.join(data_transformation_dir, DATA_TRANSFORMATION_TRANSFORMED_DATA_DIR,
+                                                   TEST_FILE_NAME.replace("csv", "npy"))
+    transformed_object_file_path: str = os.path.join(data_transformation_dir,
+                                                     DATA_TRANSFORMATION_TRANSFORMED_OBJECT_DIR,
+                                                     PREPROCSSING_OBJECT_FILE_NAME)
     
 # @dataclass
 # class ModelTrainerConfig:

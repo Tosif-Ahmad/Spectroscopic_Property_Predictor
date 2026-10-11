@@ -221,3 +221,4 @@ __marimo__/
 notebook/
 logs/
 demo.py
+artifact/

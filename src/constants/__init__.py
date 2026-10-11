@@ -1,3 +1,4 @@
+
 import os
 from datetime import date
 
@@ -18,8 +19,8 @@ MONGODB_URL_KEY = "MONGODB_URL"
 PIPELINE_NAME: str = ""
 ARTIFACT_DIR: str = "artifact"
 
-MODEL_FILE_NAME = "model.pkl"
-PREPROCSSING_OBJECT_FILE_NAME = "preprocessing.pkl"
+MODEL_FILE_NAME: str = "model.pkl"
+PREPROCSSING_OBJECT_FILE_NAME: str = "preprocessing.pkl"
 
 CURRENT_YEAR = date.today().year
 
@@ -34,14 +35,11 @@ SCHEMA_FILE_PATH = os.path.join("config", "schema.yaml")
 # Dataset Columns
 # ============================================================
 
-# Target variable (regression)
-TARGET_COLUMN = "Absorption max (nm)"
+TARGET_COLUMN: str = "Absorption max (nm)"
 
-# Molecular structure columns
-MOLECULE_SMILES_COLUMN = "Chromophore"
-SOLVENT_SMILES_COLUMN = "Solvent"
+MOLECULE_SMILES_COLUMN: str = "Chromophore"
+SOLVENT_SMILES_COLUMN: str = "Solvent"
 
-# MongoDB identifier (removed during ingestion)
 DROP_COLUMNS = ["_id"]
 
 
@@ -59,23 +57,21 @@ REGION_NAME = "us-east-1"
 # Data Ingestion Constants
 # ============================================================
 
-DATA_INGESTION_COLLECTION_NAME: str = "Proj1-Data"
+DATA_INGESTION_COLLECTION_NAME: str = COLLECTION_NAME
 
 DATA_INGESTION_DIR_NAME: str = "data_ingestion"
-
 DATA_INGESTION_FEATURE_STORE_DIR: str = "feature_store"
-
 DATA_INGESTION_INGESTED_DIR: str = "ingested"
 
 DATA_INGESTION_TRAIN_TEST_SPLIT_RATIO: float = 0.25
 
-
+MODEL_TRAINER_MAX_FEATURES = 1.0
+MODEL_TRAINER_N_JOBS = -1
 # ============================================================
 # Data Validation Constants
 # ============================================================
 
 DATA_VALIDATION_DIR_NAME: str = "data_validation"
-
 DATA_VALIDATION_REPORT_FILE_NAME: str = "report.yaml"
 
 
@@ -86,7 +82,6 @@ DATA_VALIDATION_REPORT_FILE_NAME: str = "report.yaml"
 DATA_TRANSFORMATION_DIR_NAME: str = "data_transformation"
 
 DATA_TRANSFORMATION_TRANSFORMED_DATA_DIR: str = "transformed"
-
 DATA_TRANSFORMATION_TRANSFORMED_OBJECT_DIR: str = "transformed_object"
 
 
@@ -94,16 +89,14 @@ DATA_TRANSFORMATION_TRANSFORMED_OBJECT_DIR: str = "transformed_object"
 # Molecular Feature Engineering
 # ============================================================
 
-# Morgan fingerprint configuration
+# Morgan fingerprints for both chromophore and solvent
 MORGAN_RADIUS: int = 2
 MORGAN_N_BITS: int = 512
 
-# RDKit descriptor configuration
-USE_MOLECULE_DESCRIPTORS: bool = True
-USE_SOLVENT_DESCRIPTORS: bool = True
+# MACCS fingerprints use 167 bits per molecule.
+MACCS_N_BITS: int = 167
 
-# Solvent fingerprints (optional)
-USE_SOLVENT_FINGERPRINTS: bool = False
+# Total features: 2 * (512 + 167) = 1358
 
 
 # ============================================================
@@ -111,53 +104,41 @@ USE_SOLVENT_FINGERPRINTS: bool = False
 # ============================================================
 
 MODEL_TRAINER_DIR_NAME: str = "model_trainer"
-
 MODEL_TRAINER_TRAINED_MODEL_DIR: str = "trained_model"
-
-MODEL_TRAINER_TRAINED_MODEL_NAME: str = "model.pkl"
-
-# Regression model performance threshold (R²)
-MODEL_TRAINER_EXPECTED_SCORE: float = 0.6
-
-MODEL_TRAINER_MODEL_CONFIG_FILE_PATH: str = os.path.join(
-    "config", "model.yaml"
-)
 
 # Random Forest Regressor hyperparameters
 MODEL_TRAINER_N_ESTIMATORS: int = 200
+MODEL_TRAINER_MAX_DEPTH: int | None = None
+MODEL_TRAINER_MIN_SAMPLES_SPLIT: int = 2
+MODEL_TRAINER_MIN_SAMPLES_LEAF: int = 1
+MODEL_TRAINER_MAX_FEATURES: float = 1.0
+MODEL_TRAINER_RANDOM_STATE: int = 42
+MODEL_TRAINER_N_JOBS: int = -1
 
-MODEL_TRAINER_MIN_SAMPLES_SPLIT: int = 7
-
-MODEL_TRAINER_MIN_SAMPLES_LEAF: int = 6
-
-# Preserved original constant names for compatibility
-MIN_SAMPLES_SPLIT_MAX_DEPTH: int = 10
-
-MIN_SAMPLES_SPLIT_CRITERION: str = "squared_error"
-
-MIN_SAMPLES_SPLIT_RANDOM_STATE: int = 101
-
+MODEL_TRAINER_MAX_FEATURES = 1.0
+MODEL_TRAINER_N_JOBS = -1
 
 # ============================================================
 # Model Evaluation Constants
 # ============================================================
 
-MODEL_EVALUATION_CHANGED_THRESHOLD_SCORE: float = 0.02
+# Initial acceptance thresholds (adjust after validation).
+MODEL_EVALUATION_EXPECTED_R2_SCORE: float = 0.0
+MODEL_EVALUATION_MAX_RMSE: float = 50.0
+MODEL_EVALUATION_MAX_MAE: float = 30.0
 
 
 # ============================================================
 # Model Registry / AWS S3
 # ============================================================
 
-MODEL_BUCKET_NAME = "my-model-mlopsproj"
-
-MODEL_PUSHER_S3_KEY = "model-registry"
+MODEL_BUCKET_NAME: str = "my-model-mlopsproj"
+MODEL_PUSHER_S3_KEY: str = "model-registry"
 
 
 # ============================================================
 # Application Configuration
 # ============================================================
 
-APP_HOST = "0.0.0.0"
-
-APP_PORT = 5000
+APP_HOST: str = "0.0.0.0"
+APP_PORT: int = 5000

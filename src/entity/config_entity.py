@@ -50,7 +50,26 @@ class DataTransformationConfig:
     transformed_object_file_path: str = os.path.join(data_transformation_dir,
                                                      DATA_TRANSFORMATION_TRANSFORMED_OBJECT_DIR,
                                                      PREPROCSSING_OBJECT_FILE_NAME)
-    
+
+@dataclass
+class ModelTrainerConfig:
+    model_trainer_dir: str = os.path.join(training_pipeline_config.artifact_dir,MODEL_TRAINER_DIR_NAME)
+    trained_model_file_path: str = os.path.join(model_trainer_dir,MODEL_TRAINER_TRAINED_MODEL_DIR,MODEL_FILE_NAME)
+
+    n_estimators: int = MODEL_TRAINER_N_ESTIMATORS
+    max_depth: int | None = MODEL_TRAINER_MAX_DEPTH
+    min_samples_split: int = MODEL_TRAINER_MIN_SAMPLES_SPLIT
+    min_samples_leaf: int = MODEL_TRAINER_MIN_SAMPLES_LEAF
+    random_state: int = MODEL_TRAINER_RANDOM_STATE
+    max_features: float = MODEL_TRAINER_MAX_FEATURES
+    n_jobs: int = MODEL_TRAINER_N_JOBS
+@dataclass
+class ModelEvaluationConfig:
+    """Configuration for evaluating regression model performance."""
+
+    expected_r2_score: float = MODEL_EVALUATION_EXPECTED_R2_SCORE
+    max_rmse: float = MODEL_EVALUATION_MAX_RMSE
+    max_mae: float = MODEL_EVALUATION_MAX_MAE
 # @dataclass
 # class ModelTrainerConfig:
 #     model_trainer_dir: str = os.path.join(training_pipeline_config.artifact_dir, MODEL_TRAINER_DIR_NAME)

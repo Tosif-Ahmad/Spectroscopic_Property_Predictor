@@ -27,6 +27,32 @@ class DataTransformationArtifact:
     transformed_train_file_path:str
     transformed_test_file_path:str
 
+from dataclasses import dataclass
+
+
+@dataclass
+class RegressionMetricArtifact:
+    """
+    Stores regression performance metrics.
+
+    R² measures predictive performance.
+    RMSE and MAE measure prediction errors in nanometers.
+    """
+    r2_score: float
+    rmse: float
+    mae: float
+
+
+@dataclass
+class ModelTrainerArtifact:
+    """
+    Stores the trained model location and its performance
+    on training and testing datasets.
+    """
+    trained_model_file_path: str
+    train_metric_artifact: RegressionMetricArtifact
+    test_metric_artifact: RegressionMetricArtifact
+
 # @dataclass
 # class ClassificationMetricArtifact:
 #     f1_score:float

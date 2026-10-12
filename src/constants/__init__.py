@@ -50,7 +50,7 @@ DROP_COLUMNS = ["_id"]
 AWS_ACCESS_KEY_ID_ENV_KEY = "AWS_ACCESS_KEY_ID"
 AWS_SECRET_ACCESS_KEY_ENV_KEY = "AWS_SECRET_ACCESS_KEY"
 
-REGION_NAME = "us-east-1"
+REGION_NAME = "eu-north-1"
 
 
 # ============================================================
@@ -65,8 +65,6 @@ DATA_INGESTION_INGESTED_DIR: str = "ingested"
 
 DATA_INGESTION_TRAIN_TEST_SPLIT_RATIO: float = 0.25
 
-MODEL_TRAINER_MAX_FEATURES = 1.0
-MODEL_TRAINER_N_JOBS = -1
 # ============================================================
 # Data Validation Constants
 # ============================================================
@@ -115,8 +113,6 @@ MODEL_TRAINER_MAX_FEATURES: float = 1.0
 MODEL_TRAINER_RANDOM_STATE: int = 42
 MODEL_TRAINER_N_JOBS: int = -1
 
-MODEL_TRAINER_MAX_FEATURES = 1.0
-MODEL_TRAINER_N_JOBS = -1
 
 # ============================================================
 # Model Evaluation Constants
@@ -132,8 +128,9 @@ MODEL_EVALUATION_MAX_MAE: float = 30.0
 # Model Registry / AWS S3
 # ============================================================
 
-MODEL_BUCKET_NAME: str = "my-model-mlopsproj"
+MODEL_BUCKET_NAME: str = "my-spectroscopy-mlopsproj"
 MODEL_PUSHER_S3_KEY: str = "model-registry"
+MODEL_S3_MODEL_KEY: str = f"{MODEL_PUSHER_S3_KEY}/{MODEL_FILE_NAME}"
 
 
 # ============================================================

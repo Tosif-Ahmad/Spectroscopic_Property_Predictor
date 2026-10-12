@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Molecular Absorption Wavelength Predictor</title>
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+  <main class="container">
+    <div class="eyebrow">CHEMOINFORMATICS · MACHINE LEARNING</div>
+    <h1>Absorption Wavelength Predictor</h1>
+    <p class="intro">Estimate the absorption maximum (λ<sub>max</sub>) of a chromophore in a selected solvent using molecular SMILES.</p>
+
+    <form method="post" action="/">
+      <div class="field">
+        <label for="Chromophore">Chromophore SMILES</label>
+        <input type="text" id="Chromophore" name="Chromophore" placeholder="e.g. c1ccccc1" value="{{ request.form.get('Chromophore', '') if request is defined and request.form is defined else '' }}" spellcheck="false" autocomplete="off" required>
+        <small>Enter a valid SMILES representation of the chromophore.</small>
+      </div>
+      <div class="field">
+        <label for="Solvent">Solvent SMILES</label>
+        <input type="text" id="Solvent" name="Solvent" placeholder="e.g. CCO (ethanol)" value="{{ request.form.get('Solvent', '') if request is defined and request.form is defined else '' }}" spellcheck="false" autocomplete="off" required>
+        <small>Enter a valid SMILES representation of the solvent.</small>
+      </div>
+      <button type="submit" class="primary-button">Predict λ<sub>max</sub></button>
+    </form>
+
+    {% if prediction_nm is defined and prediction_nm is not none %}
+    <section class="result" role="status" aria-live="polite">
+      <span class="result-label">Predicted absorption maximum</span>
+      <strong>{{ '%.2f'|format(prediction_nm|float) }} <span>nm</span></strong>
+    </section>
+    {% elif context %}
+    <section class="result" role="status" aria-live="polite">
+      <span class="result-label">Prediction result</span>
+      <p>{{ context }}</p>
+    </section>
+    {% endif %}
+
+    {% if error %}<div class="error" role="alert">{{ error }}</div>{% endif %}
+
+    <form method="get" action="/train" class="train-form">
+      <button type="submit" class="train-button">Train / Update Model</button>
+    </form>
+    <p class="footnote">Predictions are model estimates and may be unreliable for molecules or solvents outside the training data.</p>
+  </main>
+</body>
+</html>

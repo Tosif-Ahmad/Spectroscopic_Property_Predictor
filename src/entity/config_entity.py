@@ -63,38 +63,30 @@ class ModelTrainerConfig:
     random_state: int = MODEL_TRAINER_RANDOM_STATE
     max_features: float = MODEL_TRAINER_MAX_FEATURES
     n_jobs: int = MODEL_TRAINER_N_JOBS
+
 @dataclass
 class ModelEvaluationConfig:
-    """Configuration for evaluating regression model performance."""
+    """Configuration for comparing the new model with the S3 production model."""
+
+    bucket_name: str = MODEL_BUCKET_NAME
+    s3_model_key_path: str = MODEL_S3_MODEL_KEY
 
     expected_r2_score: float = MODEL_EVALUATION_EXPECTED_R2_SCORE
     max_rmse: float = MODEL_EVALUATION_MAX_RMSE
     max_mae: float = MODEL_EVALUATION_MAX_MAE
-# @dataclass
-# class ModelTrainerConfig:
-#     model_trainer_dir: str = os.path.join(training_pipeline_config.artifact_dir, MODEL_TRAINER_DIR_NAME)
-#     trained_model_file_path: str = os.path.join(model_trainer_dir, MODEL_TRAINER_TRAINED_MODEL_DIR, MODEL_FILE_NAME)
-#     expected_accuracy: float = MODEL_TRAINER_EXPECTED_SCORE
-#     model_config_file_path: str = MODEL_TRAINER_MODEL_CONFIG_FILE_PATH
-#     _n_estimators = MODEL_TRAINER_N_ESTIMATORS
-#     _min_samples_split = MODEL_TRAINER_MIN_SAMPLES_SPLIT
-#     _min_samples_leaf = MODEL_TRAINER_MIN_SAMPLES_LEAF
-#     _max_depth = MIN_SAMPLES_SPLIT_MAX_DEPTH
-#     _criterion = MIN_SAMPLES_SPLIT_CRITERION
-#     _random_state = MIN_SAMPLES_SPLIT_RANDOM_STATE
 
-# @dataclass
-# class ModelEvaluationConfig:
-#     changed_threshold_score: float = MODEL_EVALUATION_CHANGED_THRESHOLD_SCORE
-#     bucket_name: str = MODEL_BUCKET_NAME
-#     s3_model_key_path: str = MODEL_FILE_NAME
 
-# @dataclass
-# class ModelPusherConfig:
-#     bucket_name: str = MODEL_BUCKET_NAME
-#     s3_model_key_path: str = MODEL_FILE_NAME
+@dataclass
+class ModelPusherConfig:
+    """Configuration for uploading the accepted model to S3."""
 
-# @dataclass
-# class VehiclePredictorConfig:
-#     model_file_path: str = MODEL_FILE_NAME
-#     model_bucket_name: str = MODEL_BUCKET_NAME
+    bucket_name: str = MODEL_BUCKET_NAME
+    s3_model_key_path: str = MODEL_S3_MODEL_KEY
+
+
+@dataclass
+class VehiclePredictorConfig:
+    """Configuration for loading the deployed absorption prediction model."""
+
+    model_file_path: str = MODEL_S3_MODEL_KEY
+    model_bucket_name: str = MODEL_BUCKET_NAME

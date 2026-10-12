@@ -127,7 +127,7 @@ MODEL_EVALUATION_MAX_MAE: float = 200.0
 
 
 # ============================================================
-# Model Registry / AWS S3
+# Model Registry / AWS S3g
 # ============================================================
 
 MODEL_BUCKET_NAME: str = "my-spectroscopy-mlopsproj"

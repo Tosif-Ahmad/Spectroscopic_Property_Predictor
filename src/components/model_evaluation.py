@@ -130,7 +130,7 @@ class ModelEvaluation:
             else:
                 better_than_production = True
 
-            accepted = True#bool(passes_thresholds and better_than_production)
+            accepted = bool(passes_thresholds and better_than_production)
             logging.info(
                 "Model evaluation: new=%s, production=%s, accepted=%s",
                 new_metrics, production_metrics, accepted,

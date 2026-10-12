@@ -15,12 +15,12 @@
     <form method="post" action="/">
       <div class="field">
         <label for="Chromophore">Chromophore SMILES</label>
-        <input type="text" id="Chromophore" name="Chromophore" placeholder="e.g. c1ccccc1" value="{{ request.form.get('Chromophore', '') if request is defined and request.form is defined else '' }}" spellcheck="false" autocomplete="off" required>
+        <input type="text" id="Chromophore" name="Chromophore" placeholder="e.g. c1ccccc1" value="{{ chromophore | default('') }}" spellcheck="false" autocomplete="off" required>
         <small>Enter a valid SMILES representation of the chromophore.</small>
       </div>
       <div class="field">
         <label for="Solvent">Solvent SMILES</label>
-        <input type="text" id="Solvent" name="Solvent" placeholder="e.g. CCO (ethanol)" value="{{ request.form.get('Solvent', '') if request is defined and request.form is defined else '' }}" spellcheck="false" autocomplete="off" required>
+        <input type="text" id="Solvent" name="Solvent" placeholder="e.g. CCO (ethanol)" value="{{ solvent | default('') }}" spellcheck="false" autocomplete="off" required>
         <small>Enter a valid SMILES representation of the solvent.</small>
       </div>
       <button type="submit" class="primary-button">Predict λ<sub>max</sub></button>

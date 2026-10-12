@@ -1,33 +1,11 @@
-
-# Version control
-.git
+artifact
+venv
+env
 .gitignore
-
-# Python caches and environments
-__pycache__/
-*.py[cod]
-*$py.class
-.Python
-venv/
-env/
-.venv/
-.env
-
-# Build and test artifacts
-build/
-dist/
-*.egg-info/
-.pytest_cache/
-.coverage
-htmlcov/
-
-# Editor and operating system files
-.vscode/
-.idea/
-.DS_Store
-Thumbs.db
-
-# Logs and local secrets
-*.log
-.env.*
-!.env.example
+logs
+template.py
+demo.py
+README.md
+LICENSE
+src.egg.-info
+notebook
